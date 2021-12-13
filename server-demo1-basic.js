@@ -1,5 +1,6 @@
 // Approach #1 - using buildSchema for just Query only. Not Mutations. 
 // For Mutations Refer server-demo1-adv.js 
+// This is commonly called as schema definitional language (SDL) based approach 
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -8,6 +9,8 @@ const app = express();
 const PORT = 3000;
 
 const schema = buildSchema(`
+  """ Here Starts Schema Defn Lang (SDL) ***
+
   type User{
     id: Int,
     name: String,

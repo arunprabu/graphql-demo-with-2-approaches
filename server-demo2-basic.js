@@ -1,19 +1,21 @@
 // #Apprach #2 - using GraphQLSchema 
-// GraphQLSchema based approach does not use the schema language, 
+// GraphQLSchema based approach does not use the schema definitional language (SDL), 
 // it creates the schema programmatically.
+// This approach has many advantages
 
 const express = require('express');
 const graphql = require('graphql');
+const graphqlFields = require('graphql-fields');
 const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } = graphql;
 
 const { graphqlHTTP } = require('express-graphql');
 
 const userData = require('./demo2-basic-data.json');
-console.log(userData);
 
 let app = express();
 const PORT = 3001;
 
+// Custom Object Type
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -30,13 +32,23 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getUserList: {
       type: new GraphQLList(UserType),
-      args: { 
-        id: {
-          type: GraphQLInt
-        }
-      },
-      resolve(parent, args) {
-        console.log(userData);
+      // args: { 
+      //   id: {
+      //     type: GraphQLInt
+      //   }
+      // },
+      resolve(parent, args, context, info) {
+        console.log(parent); // undefined
+        console.log(args); // id
+        console.log(context); 
+        console.log("=========================");
+        console.log(info);
+        console.log("=========================");
+        const topLevelFields = graphqlFields(info);
+        console.log(topLevelFields); // in object format you can get
+        console.log(Object.keys(topLevelFields)); // you can all keys here like ['id', 'name', 'phone']
+        
+        // You can process the above fields hereafter
         return userData;
       }
     },
