@@ -236,6 +236,7 @@ Step 10:
 ====
 Using the above step you can work on updateUser, deleteUser also. 
 
+
 ===
 Let's now think about Enterprise App Style folder structure
 --
@@ -253,3 +254,10 @@ src/
     Mutations/
       User.js   (user related mutations can be here)
     index.js   (for RootQuery and Mutations go here)
+
+
+  
+Further Read:
+===
+Aliases - https://graphql.org/learn/queries/#aliases
+Fragments - https://graphql.org/learn/queries/#fragments

@@ -1,5 +1,6 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
+const graphqlFields = require('graphql-fields');
 const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require('graphql');
 const axios = require('axios');
 
@@ -76,8 +77,18 @@ const RootQuery = new GraphQLObjectType({
     userList: {
       type: new GraphQLList(UserType),
       //args: { id: { type: GraphQLInt }},
-      resolve(parent, args) {
-        //console.log(args);
+      resolve(parent, args, context, info) {
+        console.log(parent); // undefined
+        console.log(args); // id
+        console.log(context); 
+        console.log("=========================");
+        console.log(info);
+        console.log("=========================");
+        const topLevelFields = graphqlFields(info);
+        console.log(topLevelFields); // in object format you can get
+        console.log(Object.keys(topLevelFields)); // you can all keys here like ['id', 'name', 'phone']
+        
+        // You can process the above fields hereafter
         return userData;
       }
     },
@@ -198,4 +209,7 @@ app.listen(PORT, () => {
   console.log('GraphQL NodeJS App is running on http://localhost:3001/graphql');
 });
 
-// try node server_v1.js and check the app at http://localhost:3001/graphql
+// try node server-demo2-adv.js and check the app at http://localhost:3001/graphql
+
+// Refer for better project structure
+// https://github.com/arunprabu/graphql-node-demo1
