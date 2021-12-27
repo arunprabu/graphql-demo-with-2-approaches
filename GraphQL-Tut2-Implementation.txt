@@ -261,3 +261,17 @@ Further Read:
 ===
 Aliases - https://graphql.org/learn/queries/#aliases
 Fragments - https://graphql.org/learn/queries/#fragments
+  query{
+    getUserList {
+      ...UserInfo
+    }
+    user(id: 1) {
+      ...UserInfo
+    }
+  }
+
+  fragment UserInfo on User{
+    id
+    name
+    phone
+  }

@@ -79,13 +79,13 @@ const RootQuery = new GraphQLObjectType({
       //args: { id: { type: GraphQLInt }},
       resolve(parent, args, context, info) {
         console.log(parent); // undefined
-        console.log(args); // id
-        console.log(context); 
+        console.log(args); // undefined
+        console.log(context);  // req, res from express
         console.log("=========================");
-        console.log(info);
+        console.log(info); // carry the fields of the queried api
         console.log("=========================");
         const topLevelFields = graphqlFields(info);
-        console.log(topLevelFields); // in object format you can get
+        console.log(topLevelFields); // in object format - you can get
         console.log(Object.keys(topLevelFields)); // you can all keys here like ['id', 'name', 'phone']
         
         // You can process the above fields hereafter
